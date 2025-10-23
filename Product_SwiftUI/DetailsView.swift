@@ -21,11 +21,15 @@ struct DetailsView : View {
     var body: some View {
         VStack {
             
-            if let image = image {
-                Image(uiImage: image)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 80, height: 80)
+            if let url = URL(string: imageUrl ?? ""){
+                AsyncImage(url: url) { image in
+                    image
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 80, height: 80)
+                } placeholder: {
+                    ProgressView()
+                }
             }
            
             VStack {
@@ -53,14 +57,5 @@ struct DetailsView : View {
             }
             .padding()
         }
-        .task {
-            await loadImage()
-        }
-    }
-    
-    private func loadImage() async {
-        guard let urlString = imageUrl, !urlString.isEmpty else
-        { return }
-        image = await NetworkManager1.shared.fetchImage(from: urlString)
     }
 }

@@ -9,7 +9,6 @@ import SwiftUI
 class ProductViewModel : ObservableObject {
     
     @Published var products : [Products] = []
-//    @Published var image : UIImage?
     
     var networkObj : NetworkManager1
     
@@ -21,7 +20,4 @@ class ProductViewModel : ObservableObject {
         products = await networkObj.fetchData(urlString: ProductConstant.productURL.rawValue)
     }
     
-//    func loadImage(from urlString : String) async {
-//        image = await networkObj.fetchImage(from: urlString)
-//    }
 }

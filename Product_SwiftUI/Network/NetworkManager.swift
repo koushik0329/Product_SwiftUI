@@ -27,22 +27,4 @@ class NetworkManager1 {
             return []
         }
     }
-    
-    func fetchImage(from urlString : String) async -> UIImage {
-        guard let url = URL(string: urlString) else {
-            print("inavlid url")
-            return UIImage()
-        }
-        do {
-            let (data, _) = try await URLSession.shared.data(from: url)
-            guard let image = UIImage(data: data) else {
-                return UIImage()
-            }
-            return image
-        }
-        catch {
-            print("unable to get image")
-            return UIImage()
-        }
-    }
 }

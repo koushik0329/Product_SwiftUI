@@ -11,7 +11,7 @@ import SwiftUI
 struct Product_SwiftUIApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ProductView(viewModel: ProductViewModel(networkObj: NetworkManager1.shared))
         }
     }
 }

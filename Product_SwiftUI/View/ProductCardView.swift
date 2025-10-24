@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct ProductCardView : View {
     
@@ -20,15 +21,15 @@ struct ProductCardView : View {
     var body: some View {
         HStack(spacing: 8) {
             if let url = URL(string: imageUrl ?? ""){
-                AsyncImage(url: url) { image in
-                    image
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: imageSize,height: imageSize)
-                } placeholder: {
-                    ProgressView()
-                        .frame(height: imageSize)
-                }
+                KFImage.url(url)
+                    .placeholder {
+                        ProgressView()
+                        .frame(width: imageSize, height: imageSize)
+                    }
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: imageSize, height: imageSize)
+                    .cornerRadius(8)
             }
             VStack{
                 Text(title ?? "")

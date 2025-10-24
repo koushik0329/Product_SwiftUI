@@ -6,12 +6,15 @@
 //
 
 import SwiftUI
+import ActivityIndicatorView
 
 struct ProductView : View {
     
     @ObservedObject var viewModel : ProductViewModel
     
     @State var path = NavigationPath()
+    
+    @State var isLoading : Bool = true
     
     init(viewModel: ProductViewModel) {
         self.viewModel = viewModel
@@ -20,6 +23,9 @@ struct ProductView : View {
     var body: some View {
         NavigationStack(path: $path) {
             VStack {
+                ActivityIndicatorView(isVisible: $isLoading, type: .scalingDots())
+                    .frame(width: 50, height: 50)
+                    .foregroundColor(.blue)
                 List(viewModel.products, id: \.self) { product in
                     Button {
                         path.append(product)
@@ -33,6 +39,7 @@ struct ProductView : View {
             })
             .task {
                 await viewModel.loadData()
+                isLoading = false
             }
             .navigationTitle("Products")
         }

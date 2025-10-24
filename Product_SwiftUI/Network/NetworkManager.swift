@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Alamofire
 
 class NetworkManager1 {
     static let shared = NetworkManager1()
@@ -26,5 +27,12 @@ class NetworkManager1 {
             print("unable to decode data")
             return []
         }
+    }
+    
+    func getDataFromAF(urlString : String) {
+        AF.request(urlString)
+            .responseString { response in
+                print(response.response?.statusCode)
+            }
     }
 }
